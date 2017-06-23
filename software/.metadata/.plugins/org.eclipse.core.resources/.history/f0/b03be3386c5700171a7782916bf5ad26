@@ -1,0 +1,17 @@
+/*
+ * SDcard.h
+ *
+ *  Created on: 29 maj 2017
+ *      Author: Przemek
+ */
+
+#ifndef SDCARD_H_
+#define SDCARD_H_
+
+#include "alt_types.h"
+
+void delay(void);
+void sd_CardInit(void);
+alt_u8* sdCard_SendCommand(alt_u8 *command, alt_u8 response_length);
+
+#endif /* SDCARD_H_ */

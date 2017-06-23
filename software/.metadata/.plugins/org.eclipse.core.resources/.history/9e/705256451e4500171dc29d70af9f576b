@@ -1,0 +1,86 @@
+/*
+ * SPI.c
+ *
+ *  Created on: 25 maj 2017
+ *      Author: Przemek
+ */
+
+#include "SPI.h"
+#include "altera_avalon_spi_regs.h"
+#include "altera_avalon_spi.h"
+
+/*TODO:
+ * -send data
+ * -receive data
+ * -is data*/
+
+void spi_SelectSlave(alt_u32 base, alt_u32 slave){
+	IOWR_ALTERA_AVALON_SPI_SLAVE_SEL(base, 1 << slave);
+	// Set the SSO bit (force chipselect)
+	IOWR_ALTERA_AVALON_SPI_CONTROL(base, ALTERA_AVALON_SPI_CONTROL_SSO_MSK);
+}
+
+void spi_DeselectSlave(alt_u32 base, alt_u32 slave){
+	IOWR_ALTERA_AVALON_SPI_SLAVE_SEL(base, 1 << slave);
+	// reset the SSO bit (force chipselect)
+	IOWR_ALTERA_AVALON_SPI_CONTROL(base,0);
+}
+
+void spi_SendByte(alt_u32 base, alt_u32 slave, alt_u8 data){
+	alt_u32 status;
+
+	spi_SelectSlave(base,slave);
+
+	do {
+	status = IORD_ALTERA_AVALON_SPI_STATUS(base);
+	} while ((status & ALTERA_AVALON_SPI_STATUS_TRDY_MSK) == 0);
+	IOWR_ALTERA_AVALON_SPI_TXDATA(base,data);
+
+	/* Wait until the interface has finished transmitting */
+	do
+	{
+		status = IORD_ALTERA_AVALON_SPI_STATUS(base);
+	}
+	while ((status & ALTERA_AVALON_SPI_STATUS_TMT_MSK) == 0);
+
+	spi_DeselectSlave(base,slave);
+}
+
+void spi_SendData(alt_u32 base, alt_u32 slave, const alt_u8 *data, alt_u8 length){		//FIXME: Funkcja po ka¿dm wys³anym bajcie "odznacza" slave'a
+	alt_u32 status;
+	alt_u8 i;
+
+	for(i=0;i<length;i++){
+		spi_SelectSlave(base,slave);
+		do {
+		status = IORD_ALTERA_AVALON_SPI_STATUS(base);
+		} while ((status & ALTERA_AVALON_SPI_STATUS_TRDY_MSK) == 0);
+		IOWR_ALTERA_AVALON_SPI_TXDATA(base,*data++);
+		/* Wait until the interface has finished transmitting */
+		do
+		{
+			status = IORD_ALTERA_AVALON_SPI_STATUS(base);
+		}
+		while ((status & ALTERA_AVALON_SPI_STATUS_TMT_MSK) == 0);
+
+		spi_DeselectSlave(base,slave);
+	}
+}
+
+bool spi_IsData(alt_u32 base){		//FIXME:
+	if(IORD_ALTERA_AVALON_SPI_STATUS(base) & ALTERA_AVALON_SPI_STATUS_RRDY_MSK){
+		return true;
+	}
+
+	return false;
+}
+
+alt_u32 spi_ReadData(alt_u32 base){
+	if(spi_IsData){
+		alt_u32 data = IORD_ALTERA_AVALON_SPI_RXDATA(base);
+
+		return data;
+	}
+
+	return 1;
+}

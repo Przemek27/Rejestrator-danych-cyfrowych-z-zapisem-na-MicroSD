@@ -1,0 +1,116 @@
+/*
+ * SDcard.c
+ *
+ *  Created on: 25 maj 2017
+ *      Author: Przemek
+ */
+
+/*TODO:
+ * -sdCardInit
+ * -sendCommand
+ * -delay
+ * -clockTick
+ * */
+
+#include "SDcard.h"
+#include "SPI.h"
+#include "system.h"
+#include "sys/alt_stdio.h"
+#include "altera_avalon_spi.h"
+
+volatile int *spi_interface = (int *) SPI_0_BASE;
+
+void createClockPulse(void) {			//FIXME: skopiowane z Altera Laboratory Exercise 9 (Interface Protocols)
+	int index;
+	int contents;
+
+	for (index=0;index<=15;index++){
+	contents = *spi_interface;
+	}
+	*spi_interface = contents | 0x01;
+	for (index=0;index<=15;index++){
+	contents = *spi_interface;
+	}
+	*spi_interface = contents & 0x0E;
+}
+
+void sdCardInit(void){
+//	alt_u8 i;
+	alt_u8 cmd0[] = {64,0,0,0,0,149};			//start condition = 01 + cmd_nr = 0; argument = 0,0,0,0; crc = 1001010 + stop condition = 1
+	alt_u32 response;
+	alt_u8 *read_data;
+
+	/*Discard previous data*/
+	if(spi_IsData(SPI_0_BASE)){
+		spi_ReadData(SPI_0_BASE);
+	}
+
+	/*1) Supply Voltage for initialization.
+	Host System can apply the Operating Voltage from initialization to the card.
+	 Apply more than 74 cycles of Dummy-clock to the SD card.*/
+//	for(i=0;i<100;i++){
+//		createClockPulse();
+//	}
+	delay();
+	/*2) Select operation mode (SD mode or SPI mode)
+	 In case of SPI mode operation, host should drive 1 pin (CD/DAT3) of SD Card I/F to “Low” level. Then, issue CMD0.
+	 In case of SD mode operation, host should drive or detect 1 pin of SD Card I/F (Pull up register of 1 pin is pull
+	up to “High” normally).
+	 Card maintain selected operation mode except re-issue of CMD0 or power on below is SD mode initialization procedure.*/
+	//spi_SelectSlave(SPI_0_BASE, 0);
+	/*Send CMD0*/
+	do{
+		spi_SendData(SPI_0_BASE,0,cmd0,6);
+		//The SD card will respond to the reset command by sending a basic 8-bit response on the MISO line
+		//If the command you sent was successfully	received, then you will receive the message (00000001)
+		//To receive this message, your program should continuously toggle the SD CLK signal and observe the
+		//MISO line for data, while keeping the MOSI line high !!!!and the CS line low!!!!
+		//Note that the response to each command is sent by the card a few SD CLK cycles later. If the
+		//expected response is not received within 16 clock cycles after sending the reset command, the reset
+		//command has to be sent again.
+		//spi_SelectSlave(SPI_0_BASE, 0);
+		//alt_avalon_spi_command(SPI_0_BASE, 0, 6, cmd0, 0, read_data,ALT_AVALON_SPI_COMMAND_MERGE);
+//		for(i=0;i<16;i++){
+//			createClockPulse();
+//		}
+		delay();
+
+//		if(spi_IsData(SPI_0_BASE)){
+//			alt_u32 response;
+//
+//			response = spi_ReadData(SPI_0_BASE);
+//			alt_printf("Response from microSD card: %x\n", response);
+//		}
+//		else
+//			alt_printf("ERROR!!!\nMicroSD card didn't respond\n");
+//		alt_printf("Iteration\n");
+	} while(!spi_IsData(SPI_0_BASE));
+
+	response = spi_ReadData(SPI_0_BASE);
+	alt_printf("Response from microSD card: %x\n", response);
+	/*3) Send the ACMD41 with Arg = 0 and identify the operating voltage range of the Card.
+	4) Apply the indicated operating voltage to the card.
+	Reissue ACMD41 with apply voltage storing and repeat ACMD41 until the busy bit is cleared.
+	 (Bit 31 Busy = 1) If response time out occurred, host can recognize not SD Card.
+	 Note: In MMC-SPI Mode, CMD1 can use in this state.
+	However, do not use CMD1 in case of SD Mode.
+	5) Issue the CMD2 and get the Card ID (CID).
+	Issue the CMD3 and get the RCA. (RCA value is randomly changed by access, not equal zero)
+	6) Issue the CMD7 and move to the transfer state.
+	If necessary, Host may issue the ACMD42 and disabled the pull up resistor for Card detect.
+	7) Issue the ACMD13 and poll the Card status as SD Memory Card. Check SD_CARD_TYPE value. If significant 8 bits
+	are “all zero”, that means SD Card. If it is not, stop initialization.
+	8) Issue CMD7 and move to standby state.
+	Issue CMD9 and get CSD.
+	Issue CMD10 and get CID.
+	9) Back to the Transfer state with CMD7.
+	 Issue ACMD6 and choose the appropriate bus-width. */
+}
+
+void delay(void){
+	alt_u8 i;
+
+	for(i=0;i<100;i++){
+		//do nothing
+	}
+}

@@ -1,0 +1,56 @@
+/*
+ * SPI.c
+ *
+ *  Created on: 18 maj 2017
+ *      Author: Przemek
+ */
+
+#include "altera_avalon_spi.h"
+#include "altera_avalon_spi_regs.h"
+#include "system.h"
+
+//TODO: sdCard_init()
+
+void sdCard_init(void){
+	int i;
+//	To initialize the Toshiba SD card, follow the following procedure is recommended example.
+//	1) Supply Voltage for initialization.
+//	Host System can apply the Operating Voltage from initialization to the card.
+//	 Apply more than 74 cycles of Dummy-clock to the SD card.
+	/*delay*/
+	for(i=0;i<128;i++){
+		//do nothing
+	}
+//	2) Select operation mode (SD mode or SPI mode)
+//	 In case of SPI mode operation, host should drive 1 pin (CD/DAT3) of SD Card I/F to “Low” level. Then, issue CMD0.
+//	 In case of SD mode operation, host should drive or detect 1 pin of SD Card I/F (Pull up register of 1 pin is pull
+//	up to “High” normally).
+//	 Card maintain selected operation mode except re-issue of CMD0 or power on below is SD mode initialization procedure.
+	IOWR_ALTERA_AVALON_SPI_SLAVE_SEL(SPI_1_BASE, 1);
+  /* Set the SSO bit (force chipselect)*/
+	IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_1_BASE, ALTERA_AVALON_SPI_CONTROL_SSO_MSK);
+//	 /*
+//	   * Discard any stale data present in the RXDATA register, in case
+//	   * previous communication was interrupted and stale data was left
+//	   * behind.
+//	   */
+//	  IORD_ALTERA_AVALON_SPI_RXDATA(SPI_1_BASE);
+	//TODO: Issue the CMD0
+//	3) Send the ACMD41 with Arg = 0 and identify the operating voltage range of the Card.
+//	4) Apply the indicated operating voltage to the card.
+//	Reissue ACMD41 with apply voltage storing and repeat ACMD41 until the busy bit is cleared.
+//	 (Bit 31 Busy = 1) If response time out occurred, host can recognize not SD Card.
+//	 Note: In MMC-SPI Mode, CMD1 can use in this state.
+//	However, do not use CMD1 in case of SD Mode.
+//	5) Issue the CMD2 and get the Card ID (CID).
+//	Issue the CMD3 and get the RCA. (RCA value is randomly changed by access, not equal zero)
+//	6) Issue the CMD7 and move to the transfer state.
+//	If necessary, Host may issue the ACMD42 and disabled the pull up resistor for Card detect.
+//	7) Issue the ACMD13 and poll the Card status as SD Memory Card. Check SD_CARD_TYPE value. If significant 8 bits
+//	are “all zero”, that means SD Card. If it is not, stop initialization.
+//	8) Issue CMD7 and move to standby state.
+//	Issue CMD9 and get CSD.
+//	Issue CMD10 and get CID.
+//	9) Back to the Transfer state with CMD7.
+//	 Issue ACMD6 and choose the appropriate bus-width.
+}

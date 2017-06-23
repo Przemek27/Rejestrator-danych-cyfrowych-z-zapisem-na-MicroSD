@@ -1,0 +1,10 @@
+/*
+ * SPI.c
+ *
+ *  Created on: 18 maj 2017
+ *      Author: Przemek
+ */
+
+#include "altera_avalon_spi.h"
+
+//TODO: spi_init()

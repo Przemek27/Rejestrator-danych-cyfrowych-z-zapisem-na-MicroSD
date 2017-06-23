@@ -1,0 +1,106 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(symbol
+	(rect 384 104 656 376)
+	(text "processor" (rect 107 -1 223 17)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 256 41 270)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "button_export[1..0]" (rect 0 0 179 16)(font "Arial" (font_size 8)))
+		(text "button_export[1..0]" (rect 4 61 183 77)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 112 72)(line_width 3))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "clk_clk" (rect 0 0 66 16)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 101 70 117)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 112 112))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "spi_MISO" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "spi_MISO" (rect 4 181 79 197)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 112 192))
+	)
+	(port
+		(pt 0 152)
+		(output)
+		(text "led_export[3..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "led_export[3..0]" (rect 4 141 155 157)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 112 152)(line_width 3))
+	)
+	(port
+		(pt 0 208)
+		(output)
+		(text "spi_MOSI" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "spi_MOSI" (rect 4 197 79 213)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 112 208))
+	)
+	(port
+		(pt 0 224)
+		(output)
+		(text "spi_SCLK" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "spi_SCLK" (rect 4 213 79 229)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 112 224))
+	)
+	(port
+		(pt 0 240)
+		(output)
+		(text "spi_SS_n" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "spi_SS_n" (rect 4 229 79 245)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 112 240))
+	)
+	(drawing
+		(text "button" (rect 77 43 140 60)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 117 67 166 81)(font "Arial" (color 0 0 0)))
+		(text "clk" (rect 97 83 128 100)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 117 107 141 121)(font "Arial" (color 0 0 0)))
+		(text "led" (rect 96 123 127 140)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 117 147 166 161)(font "Arial" (color 0 0 0)))
+		(text "spi" (rect 96 163 127 180)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "MISO" (rect 117 187 150 201)(font "Arial" (color 0 0 0)))
+		(text "MOSI" (rect 117 203 150 217)(font "Arial" (color 0 0 0)))
+		(text "SCLK" (rect 117 219 150 233)(font "Arial" (color 0 0 0)))
+		(text "SS_n" (rect 117 235 150 249)(font "Arial" (color 0 0 0)))
+		(text " processor " (rect 226 256 316 270)(font "Arial" ))
+		(line (pt 112 32)(pt 160 32))
+		(line (pt 160 32)(pt 160 256))
+		(line (pt 112 256)(pt 160 256))
+		(line (pt 112 32)(pt 112 256))
+		(line (pt 113 52)(pt 113 76))
+		(line (pt 114 52)(pt 114 76))
+		(line (pt 113 92)(pt 113 116))
+		(line (pt 114 92)(pt 114 116))
+		(line (pt 113 132)(pt 113 156))
+		(line (pt 114 132)(pt 114 156))
+		(line (pt 113 172)(pt 113 244))
+		(line (pt 114 172)(pt 114 244))
+		(line (pt 0 0)(pt 272 0))
+		(line (pt 272 0)(pt 272 272))
+		(line (pt 0 272)(pt 272 272))
+		(line (pt 0 0)(pt 0 272))
+	)
+)
