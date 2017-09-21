@@ -83,13 +83,25 @@
 #include "system.h"
 #include "sys/alt_cache.h"
 
+#include <stdio.h>
+#include <string.h>
+
 #include "altera_avalon_spi.h"
 #include "altera_avalon_spi_regs.h"
+#include "altera_avalon_timer.h"
+#include "altera_avalon_timer_regs.h"
+#include "altera_avalon_pio_regs.h"
 
 #include "sys/alt_irq.h"
 
 #include "SPI.h"
 #include "SDcard.h"
+#include "uart.h"
+#include "buffer.h"
+
+static alt_u8 acquireData_Flag;
+//static alt_u8 buffer[512];			//FIXME: ? static, volatile, rozmiar ? czy zrobic strukture fifo ?
+Buffer buf;
 
 //This is the ISR that runs when the SPI error occurred
 static void spi_isr(void* isr_context){
@@ -105,26 +117,59 @@ static void spi_isr(void* isr_context){
 	IOWR_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE, 0x0);
 }
 
+//ISR for timer, runs every 1ms
+static void timer_isr(void* isr_context){
+	alt_u8 temp;
+
+	if(acquireData_Flag == 0xff){
+		temp = IORD_ALTERA_AVALON_PIO_DATA(PIO_0_BASE);
+		//TODO: dodaj dane do bufora
+		buf->data[buf->index] = temp;
+		buf->index++;
+	}
+	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE, 0);
+}
+
+
 int main()
 {
-  alt_printf("Hello from Nios II!\n");
-
   int ret;
 
+  acquireData_Flag = 0;
+  buf->index = 0;
+
+  alt_printf("Hello from Nios II!\n\r");
+
   //This registers the Slave IRQ with NIOS
-  ret = alt_ic_isr_register(SPI_0_IRQ_INTERRUPT_CONTROLLER_ID,SPI_0_IRQ,spi_isr,(void *)sdCard_Init,0x0);
-  alt_printf("IRQ register return %x \n", ret);
+  ret = alt_ic_isr_register(SPI_0_IRQ_INTERRUPT_CONTROLLER_ID, SPI_0_IRQ, spi_isr, (void *)sdCard_Init, 0x0);
+  alt_printf("IRQ register return %x \n\r", ret);
 
   //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_0_BASE, ALTERA_AVALON_SPI_CONTROL_IE_MSK);
 
+  //register the timer irq to be serviced by timer_isr() function
+  ret = alt_ic_isr_register(TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID, TIMER_0_IRQ, timer_isr, NULL, 0x0);
+  alt_printf("IRQ register return %x \n\r", ret);
+
+  //activate the timer
+  IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_0_BASE,
+                  ALTERA_AVALON_TIMER_CONTROL_CONT_MSK
+                | ALTERA_AVALON_TIMER_CONTROL_START_MSK
+                | ALTERA_AVALON_TIMER_CONTROL_ITO_MSK);
+
   if(sdCard_Init()){
-	 alt_printf("Initialization successful\n");
+	 alt_printf("Initialization successful\n\r");
   }
   else
-	  alt_printf("Initialization failed\n");
+	  alt_printf("Initialization failed\n\r");
+
+  /*Read Data*/
+  //sdCard_ReadData(2048,1);
+
 
   while(1){
+	  uart_commandManage(&acquireData_Flag);
+	  //TODO: dataLogger_manage(struct &dataLogger_status)
   }
 
   return 0;

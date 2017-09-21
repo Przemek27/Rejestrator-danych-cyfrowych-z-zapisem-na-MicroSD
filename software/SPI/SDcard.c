@@ -5,6 +5,7 @@
  *      Author: Przemek
  */
 
+//TODO: sdCard_WriteData
 
 #include "SDcard.h"
 #include "SPI.h"
@@ -127,8 +128,44 @@ void sdCard_SendCommand(alt_u8 *command,  alt_u32 *response, alt_u8 response_len
 			temp = spi_ReadData(SPI_0_BASE);
 			if(i>0){							//Ignore first response
 				response[i-1] = temp;
-				alt_printf("Response from microSD card: %x\n", response[i-1]);
+				alt_printf("Response from microSD card: %x\n\r", response[i-1]);
 			}
+		}
+	}
+}
+
+void sdCard_ReadData(alt_u32 address, alt_u8 blocks){		//FIXME
+	//send CMD17 or CMD18 for multiple block read
+	alt_u8 cmd17[6];
+	//alt_u8 cmd17_response = 1;
+	alt_u16 i;
+	alt_u32 response[MAX_RESPONSE_LENGTH] = {0};
+
+	cmd17[0] = 81;
+	cmd17[1] = address >> 24;
+	cmd17[2] = address >> 16;
+	cmd17[3] = address >> 8;
+	cmd17[4] = address;
+	cmd17[5] = 1;
+
+
+	sdCard_SendCommand(cmd17, response, 1);
+//	if(response[0] != cmd17_response){
+//		alt_printf("Error! Invalid response\n\r");
+//		return;
+//	}
+	alt_printf("Response: %x\n\r", response[0]);
+
+	for(i=0;i<514;i++){								//FIXME: 512 czy wiecej?? (16 bit CRC)
+		spi_SendByte(SPI_0_BASE, 0, 255);
+		/*Read data*/
+		if(spi_IsData(SPI_0_BASE)){
+			alt_u32 temp;
+
+			temp = spi_ReadData(SPI_0_BASE);
+			//if(i>0){							//Ignore first response
+				alt_printf("Response from microSD card: %x\n\r", temp);
+			//}
 		}
 	}
 }

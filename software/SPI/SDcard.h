@@ -27,4 +27,10 @@ alt_u8 sdCard_Init(void);
  * */
 void sdCard_SendCommand(alt_u8 *command, alt_u32 *response, alt_u8 response_length);
 
+/*
+ * @param address - read from address
+ * @param blocks - number of blocks to read (block = 512 B)
+ * */
+void sdCard_ReadData(alt_u32 address, alt_u8  blocks);
+
 #endif /* SDCARD_H_ */

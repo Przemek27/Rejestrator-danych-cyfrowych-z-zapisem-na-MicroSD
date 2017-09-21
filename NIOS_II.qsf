@@ -65,4 +65,16 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_0_external_MISO
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_0_external_MOSI
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_0_external_SCLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_0_external_SS_n
+set_location_assignment PIN_A13 -to uart_0_external_rxd
+set_location_assignment PIN_B13 -to uart_0_external_txd
+set_location_assignment PIN_L16 -to input_data_export[0]
+set_location_assignment PIN_F16 -to input_data_export[7]
+set_location_assignment PIN_G16 -to input_data_export[6]
+set_location_assignment PIN_G15 -to input_data_export[5]
+set_location_assignment PIN_H16 -to input_data_export[4]
+set_location_assignment PIN_H15 -to input_data_export[3]
+set_location_assignment PIN_J16 -to input_data_export[2]
+set_location_assignment PIN_J15 -to input_data_export[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to uart_0_external_rxd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to uart_0_external_txd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

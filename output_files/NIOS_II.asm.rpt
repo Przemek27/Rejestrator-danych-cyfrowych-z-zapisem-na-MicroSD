@@ -1,5 +1,5 @@
 Assembler report for NIOS_II
-Thu Jun 01 13:40:08 2017
+Fri Sep 08 17:52:38 2017
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Jun 01 13:40:08 2017 ;
+; Assembler Status      ; Successful - Fri Sep 08 17:52:38 2017 ;
 ; Revision Name         ; NIOS_II                               ;
 ; Top-level Entity Name ; processor                             ;
 ; Family                ; MAX 10                                ;
@@ -79,8 +79,8 @@ agreement for further details.
 ; Option         ; Setting                                                                             ;
 +----------------+-------------------------------------------------------------------------------------+
 ; Device         ; 10M08DAF256C8GES                                                                    ;
-; JTAG usercode  ; 0x0018F59B                                                                          ;
-; Checksum       ; 0x0018F59B                                                                          ;
+; JTAG usercode  ; 0x001A8E79                                                                          ;
+; Checksum       ; 0x001A8E79                                                                          ;
 +----------------+-------------------------------------------------------------------------------------+
 
 
@@ -90,13 +90,13 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
-    Info: Processing started: Thu Jun 01 13:40:07 2017
+    Info: Processing started: Fri Sep 08 17:52:37 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off NIOS_II -c NIOS_II
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 721 megabytes
-    Info: Processing ended: Thu Jun 01 13:40:08 2017
+    Info: Peak virtual memory: 720 megabytes
+    Info: Processing ended: Fri Sep 08 17:52:38 2017
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

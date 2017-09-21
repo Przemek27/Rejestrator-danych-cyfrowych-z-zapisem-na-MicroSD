@@ -1,5 +1,5 @@
 Flow report for NIOS_II
-Thu Jun 01 13:40:23 2017
+Fri Sep 08 17:52:52 2017
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -41,22 +41,22 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Jun 01 13:40:23 2017       ;
+; Flow Status                        ; Successful - Fri Sep 08 17:52:52 2017       ;
 ; Quartus Prime Version              ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                      ; NIOS_II                                     ;
 ; Top-level Entity Name              ; processor                                   ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M08DAF256C8GES                            ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 1,786 / 8,064 ( 22 % )                      ;
-;     Total combinational functions  ; 1,633 / 8,064 ( 20 % )                      ;
-;     Dedicated logic registers      ; 1,007 / 8,064 ( 12 % )                      ;
-; Total registers                    ; 1007                                        ;
-; Total pins                         ; 5 / 178 ( 3 % )                             ;
+; Total logic elements               ; 2,006 / 8,064 ( 25 % )                      ;
+;     Total combinational functions  ; 1,783 / 8,064 ( 22 % )                      ;
+;     Dedicated logic registers      ; 1,206 / 8,064 ( 15 % )                      ;
+; Total registers                    ; 1206                                        ;
+; Total pins                         ; 15 / 178 ( 8 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 44,032 / 387,072 ( 11 % )                   ;
+; Total memory bits                  ; 75,776 / 387,072 ( 20 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 0 / 48 ( 0 % )                              ;
-; Total PLLs                         ; 0 / 2 ( 0 % )                               ;
+; Total PLLs                         ; 1 / 2 ( 50 % )                              ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
 ; ADC blocks                         ; 0 / 1 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
@@ -67,7 +67,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/01/2017 13:38:35 ;
+; Start date & time ; 09/08/2017 17:50:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; NIOS_II             ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 119331719903973.149631711511672       ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 119331719903973.150488585907516       ; --            ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                  ; --            ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                ; <None>        ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --             ;
@@ -98,12 +98,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:01     ; 1.0                     ; 908 MB              ; 00:01:59                           ;
-; Fitter                    ; 00:00:17     ; 1.5                     ; 1591 MB             ; 00:00:17                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 721 MB              ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:05     ; 2.0                     ; 855 MB              ; 00:00:06                           ;
-; EDA Netlist Writer        ; 00:00:02     ; 1.0                     ; 729 MB              ; 00:00:01                           ;
-; Total                     ; 00:01:26     ; --                      ; --                  ; 00:02:24                           ;
+; Analysis & Synthesis      ; 00:01:08     ; 1.0                     ; 922 MB              ; 00:02:08                           ;
+; Fitter                    ; 00:00:16     ; 1.2                     ; 1576 MB             ; 00:00:19                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 720 MB              ; 00:00:01                           ;
+; TimeQuest Timing Analyzer ; 00:00:04     ; 2.0                     ; 857 MB              ; 00:00:06                           ;
+; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 733 MB              ; 00:00:01                           ;
+; Total                     ; 00:01:30     ; --                      ; --                  ; 00:02:35                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

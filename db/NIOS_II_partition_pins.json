@@ -16,11 +16,51 @@
 					"strict" : false
 				},
 				{
+					"name" : "uart_0_external_txd",
+					"strict" : false
+				},
+				{
 					"name" : "clk_clk",
 					"strict" : false
 				},
 				{
+					"name" : "input_data_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[7]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[6]",
+					"strict" : false
+				},
+				{
+					"name" : "input_data_export[5]",
+					"strict" : false
+				},
+				{
 					"name" : "spi_0_external_MISO",
+					"strict" : false
+				},
+				{
+					"name" : "uart_0_external_rxd",
 					"strict" : false
 				},
 				{

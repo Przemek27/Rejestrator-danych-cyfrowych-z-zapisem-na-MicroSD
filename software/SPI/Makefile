@@ -145,6 +145,7 @@ ELF := SPI.elf
 C_SRCS += SPI.c
 C_SRCS += SDcard.c
 C_SRCS += main.c
+C_SRCS += uart.c
 CXX_SRCS :=
 ASM_SRCS :=
 

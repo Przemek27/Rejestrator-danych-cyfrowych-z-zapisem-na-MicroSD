@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="main" key="selection"/>
+		<item value="uart" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="uart"/>
+			<item value="ALTERA_AVALON_UART"/>
+			<item value="IOWR_ALTERA_AVALON_TIMER_CONTROL"/>
 			<item value="main"/>
 			<item value="hello"/>
 			<item value="altera_avalon_spi"/>

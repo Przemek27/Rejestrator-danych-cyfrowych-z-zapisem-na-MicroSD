@@ -8,6 +8,19 @@
 	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
+	<section name="PDOMSearchPage">
+		<item value="false" key="caseSensitive"/>
+		<item value="227191" key="searchFlags"/>
+		<list key="previousPatterns">
+			<item value="ALTERA_AVALON_UART_STATUS_TRDY_MSK"/>
+			<item value="stdout"/>
+			<item value="UART_0"/>
+			<item value="IOWR_ALTERA_AVALON_TIMER_STATUS"/>
+			<item value="TIMER_0_IRQ"/>
+			<item value="IORD_ALTERA_AVALON_SPI_STATUS"/>
+			<item value="IOWR_ALTERA_AVALON_TIMER_CONTROL"/>
+		</list>
+	</section>
 	<section name="completion_proposal_size">
 	</section>
 </section>
