@@ -1,6 +1,7 @@
 
 module processor (
 	clk_clk,
+	generator_output_export,
 	input_data_export,
 	spi_0_external_MISO,
 	spi_0_external_MOSI,
@@ -10,6 +11,7 @@ module processor (
 	uart_0_external_txd);	
 
 	input		clk_clk;
+	output	[7:0]	generator_output_export;
 	input	[7:0]	input_data_export;
 	input		spi_0_external_MISO;
 	output		spi_0_external_MOSI;

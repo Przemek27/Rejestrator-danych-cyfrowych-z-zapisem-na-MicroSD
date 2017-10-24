@@ -6,11 +6,9 @@
  */
 
 //TODO: spi_ClockTick();
+//		spi_Init();
 
 #include "SPI.h"
-#include "altera_avalon_spi_regs.h"
-#include "altera_avalon_spi.h"
-#include "sys/alt_stdio.h"
 
 void spi_SelectSlave(alt_u32 base, alt_u32 slave){
 	IOWR_ALTERA_AVALON_SPI_SLAVE_SEL(base, 1 << slave);

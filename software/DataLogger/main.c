@@ -82,17 +82,14 @@
 #include "io.h"
 #include "system.h"
 #include "sys/alt_cache.h"
+#include "sys/alt_irq.h"
 
 #include <stdio.h>
 #include <string.h>
 
-#include "altera_avalon_spi.h"
-#include "altera_avalon_spi_regs.h"
 #include "altera_avalon_timer.h"
 #include "altera_avalon_timer_regs.h"
 #include "altera_avalon_pio_regs.h"
-
-#include "sys/alt_irq.h"
 
 #include "SPI.h"
 #include "SDcard.h"
@@ -100,6 +97,7 @@
 #include "dataLogger.h"
 
 static DataLogger dataLogger;
+volatile alt_u8 cnt;
 
 //This is the ISR that runs when the SPI error occurred
 static void spi_isr(void* isr_context){
@@ -107,7 +105,7 @@ static void spi_isr(void* isr_context){
 //		alt_printf("ISR :) %x \n" ,  IORD_ALTERA_AVALON_SPI_RXDATA(SPI_0_BASE));
 //	}
 	if(IORD_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE) & ALTERA_AVALON_SPI_STATUS_E_MSK){
-		alt_printf("SPI Error occurred !!!\n\rStatus register value: %x\n\r", IORD_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE));
+		alt_printf("SPI Error occurred !!!\n\rSPI Status register value: %x\n\r", IORD_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE));
 	}
 	//This resets the IRQ flag. Otherwise the IRQ will continuously run.
 	IOWR_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE, 0x00);
@@ -117,7 +115,10 @@ static void spi_isr(void* isr_context){
 static void timer_isr(void* isr_context){
 	alt_u8 temp;
 
-	if(dataLogger.dataAcquire == 0xff){
+	cnt += 1;
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_1_BASE, cnt);
+
+	if(dataLogger.dataAcquire_Flag == 0xff){
 		temp = IORD_ALTERA_AVALON_PIO_DATA(PIO_0_BASE);
 
 		if(dataLogger.activeBuffer == 1){
@@ -132,9 +133,8 @@ static void timer_isr(void* isr_context){
 			alt_printf("Error! Buffer not selected\n\r");
 
 		if(dataLogger.bufIndex >= 512){				//after buffer is full allow save'ing data to SD card
-			dataLogger.dataSaveToSD = 0xff;
+			dataLogger.dataSaveToSD_Flag = 0xff;
 			dataLogger.bufIndex = 0;
-			dataLogger.activeBuffer = dataLogger.activeBuffer % 3;			//change active buffer
 		}
 	}
 	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE, 0);
@@ -143,23 +143,31 @@ static void timer_isr(void* isr_context){
 int main()
 {
   int ret;
-  alt_u32 i;
+  cnt = 0;
 
   alt_printf("Hello from Nios II!\n\r");
-  alt_u8 buffer[512];
+//  alt_u8 buffer[512];
 
   dataLogger_init(&dataLogger);
+  uart_init();
+
+  //TODO: spi_init
+  IOWR_ALTERA_AVALON_SPI_STATUS(SPI_0_BASE, 0x00);
+  /*Discard previous data*/
+  if(spi_IsData(SPI_0_BASE)){
+	spi_ReadData(SPI_0_BASE);
+  }
 
   //This registers the Slave IRQ with NIOS
-  ret = alt_ic_isr_register(SPI_0_IRQ_INTERRUPT_CONTROLLER_ID, SPI_0_IRQ, spi_isr, (void *)sdCard_Init, 0x0);
-  alt_printf("IRQ register return %x \n\r", ret);
+  ret = alt_ic_isr_register(SPI_0_IRQ_INTERRUPT_CONTROLLER_ID, SPI_0_IRQ, spi_isr, NULL, 0x0);
+  alt_printf("SPI IRQ register return %x \n\r", ret);
 
   //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_0_BASE, ALTERA_AVALON_SPI_CONTROL_IE_MSK);
 
   //register the timer irq to be serviced by timer_isr() function
   ret = alt_ic_isr_register(TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID, TIMER_0_IRQ, timer_isr, NULL, 0x0);
-  alt_printf("IRQ register return %x \n\r", ret);
+  alt_printf("Timer IRQ register return %x \n\r", ret);
 
   //activate the timer
   IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_0_BASE,
@@ -174,18 +182,6 @@ int main()
 	  alt_printf("SD Card Initialization failed\n\r");
 	  while(1);
   }
-
-  /*---------------TEST---------------------*/
-  /*Read Data*/
-  //sdCard_ReadData(1,1, buffer);
-  /*Save Data*/
-
-  for(i=0;i<512;i++){
-	  dataLogger.buffer1[i] = i%256;
-  }
-  sdCard_SaveData(2048,dataLogger.buffer1);
-  sdCard_ReadData(2048,1, buffer);
-  /*----------------------------------------*/
 
   while(1){
 	  uart_commandManage(&dataLogger);

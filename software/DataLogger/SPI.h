@@ -10,6 +10,9 @@
 
 #include "alt_types.h"
 #include <stdbool.h>
+#include "altera_avalon_spi_regs.h"
+#include "altera_avalon_spi.h"
+#include "sys/alt_stdio.h"
 
 void spi_SelectSlave(alt_u32 base, alt_u32 slave);
 void spi_DeselectSlave(alt_u32 base, alt_u32 slave);

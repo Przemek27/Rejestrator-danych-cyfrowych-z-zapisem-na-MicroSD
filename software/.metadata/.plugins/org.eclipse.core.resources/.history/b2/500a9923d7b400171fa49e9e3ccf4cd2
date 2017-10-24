@@ -1,0 +1,25 @@
+/*
+ * uart.h
+ *
+ *  Created on: 31 sie 2017
+ *      Author: Przemek
+ */
+
+#ifndef UART_H_
+#define UART_H_
+
+#include "alt_types.h"
+#include "dataLogger.h"
+#include "stdbool.h"
+
+/*
+ * @param logger - structure contains data logger's status flags
+ *
+ * Function manage received commands*/
+void uart_commandManage(DataLogger *logger);
+
+/*
+ * Check if UART received data*/
+bool uart_isData(alt_u32 base);
+
+#endif /* UART_H_ */

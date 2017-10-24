@@ -1,0 +1,76 @@
+/*
+ * uart.c
+ *
+ *  Created on: 31 sie 2017
+ *      Author: Przemek
+ */
+
+//TODO: uart_init()
+//		uart_isr()
+//		bufor nadawczy i odbioczy
+
+#include "uart.h"
+
+void uart_commandManage(DataLogger *logger){
+	alt_u32 c;
+
+	if(uart_isData(UART_0_BASE)){
+
+		c = IORD_ALTERA_AVALON_UART_RXDATA(UART_0_BASE);
+
+		switch(c){
+			case 's': case 'S':
+				alt_printf("start\n\r");
+				logger->dataAcquire_Flag = 0xff;
+				break;
+
+			case 'p': case 'P':
+				alt_printf("stop\n\r");
+				logger->dataAcquire_Flag = 0x00;
+				break;
+
+			case 'd': case 'D':				//FIXME: komenda powinna byc aktywna jedynie po udanej akwizycji danych
+				alt_printf("dump\n\r");
+				logger->dataDump_Flag = 0xff;
+				break;
+
+			case 'f': case 'F':
+				alt_printf("freq\n\r");
+				logger->freqChange_Flag = 0xff;
+				break;
+
+			case '?':
+				alt_printf("Commands:\n\r");
+				alt_printf("'s' - Start data acquisition\n\r");
+				alt_printf("'p' - Stop data acquisition\n\r");
+				alt_printf("'d' - Read data\n\r");
+				alt_printf("'f' - Change sample rate\n\r");
+				break;
+
+			default:
+				alt_printf("Unknown command\n\rTo see all commands press '?'\n\r");
+				break;
+		}
+	}
+}
+
+bool uart_isData(alt_u32 base){
+	if(IORD_ALTERA_AVALON_UART_STATUS(base) & ALTERA_AVALON_UART_STATUS_RRDY_MSK){
+		return true;
+	}
+
+	return false;
+}
+
+void uart_isr(void* isr_context){
+	alt_u16 status;
+
+	status = IORD_ALTERA_AVALON_UART_STATUS(UART_0_BASE);
+
+	if(status & ALTERA_AVALON_UART_STATUS_TRDY_MSK){		//transmitter ready interrupt
+		//sprawdz czy jest cos w buforze nadawczym
+	}
+	if(status & ALTERA_AVALON_UART_STATUS_RRDY_MSK){		//receiver ready interrupt
+
+	}
+}

@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="ba12c6b18e769b36381e"/>
+    <hash md5_digest_80b="7e4cbb4e3f7d82f51105"/>
   </project>
   <file_info>
     <file device="10M08DAF256C8GES" path="NIOS_II.sof" usercode="0xFFFFFFFF"/>
@@ -85,13 +85,13 @@
   <sld_infos>
     <sld_info hpath="" name="">
       <assignment_values>
-        <assignment_value text="QSYS_NAME processor HAS_SOPCINFO 1 GENERATION_ID 1504885880"/>
+        <assignment_value text="QSYS_NAME processor HAS_SOPCINFO 1 GENERATION_ID 1508861724"/>
       </assignment_values>
       <parameters/>
     </sld_info>
     <sld_info hpath="sld_hub:auto_hub" name="auto_hub">
       <assignment_values>
-        <assignment_value text="QSYS_NAME processor HAS_SOPCINFO 1 GENERATION_ID 1504885880"/>
+        <assignment_value text="QSYS_NAME processor HAS_SOPCINFO 1 GENERATION_ID 1508861724"/>
       </assignment_values>
       <parameters/>
     </sld_info>

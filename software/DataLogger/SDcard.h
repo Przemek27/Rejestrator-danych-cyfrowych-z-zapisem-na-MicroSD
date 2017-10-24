@@ -36,7 +36,7 @@ void sdCard_ReadData(alt_u32 address, alt_u8  blocks, alt_u8 *buffer);
 
 /*
  * @param address - where to save data
- * @param *data - data to be saved
+ * @param *data
  * */
 void sdCard_SaveData(alt_u32 address, alt_u8 *data);
 

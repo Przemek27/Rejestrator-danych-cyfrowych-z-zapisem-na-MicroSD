@@ -1,17 +1,17 @@
-Fitter Status : Successful - Fri Sep 08 17:52:31 2017
+Fitter Status : Successful - Tue Oct 24 18:16:39 2017
 Quartus Prime Version : 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 Revision Name : NIOS_II
 Top-level Entity Name : processor
 Family : MAX 10
 Device : 10M08DAF256C8GES
 Timing Models : Final
-Total logic elements : 2,006 / 8,064 ( 25 % )
-    Total combinational functions : 1,783 / 8,064 ( 22 % )
-    Dedicated logic registers : 1,206 / 8,064 ( 15 % )
-Total registers : 1206
-Total pins : 15 / 178 ( 8 % )
+Total logic elements : 2,031 / 8,064 ( 25 % )
+    Total combinational functions : 1,814 / 8,064 ( 22 % )
+    Dedicated logic registers : 1,228 / 8,064 ( 15 % )
+Total registers : 1228
+Total pins : 23 / 178 ( 13 % )
 Total virtual pins : 0
-Total memory bits : 75,776 / 387,072 ( 20 % )
+Total memory bits : 92,160 / 387,072 ( 24 % )
 Embedded Multiplier 9-bit elements : 0 / 48 ( 0 % )
 Total PLLs : 1 / 2 ( 50 % )
 UFM blocks : 0 / 1 ( 0 % )

@@ -1,22 +1,24 @@
-18:08:20 **** Incremental Build of configuration Nios II for project DataLogger ****
+18:25:25 **** Incremental Build of configuration Nios II for project DataLogger ****
 make all 
 Info: Building ../DataLogger_bsp/
 D:/Programy/QuartusPrimeLite/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../DataLogger_bsp/
 [BSP build complete]
-Info: Compiling dataLogger.c to obj/default/dataLogger.o
-nios2-elf-gcc -xc -MP -MMD -c -I../DataLogger_bsp//HAL/inc -I../DataLogger_bsp/ -I../DataLogger_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_CLEAN_EXIT -D'exit(a)=_exit(a)' -DALT_NO_EXIT -DALT_USE_DIRECT_DRIVERS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/dataLogger.o dataLogger.c
 Info: Compiling main.c to obj/default/main.o
 nios2-elf-gcc -xc -MP -MMD -c -I../DataLogger_bsp//HAL/inc -I../DataLogger_bsp/ -I../DataLogger_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_CLEAN_EXIT -D'exit(a)=_exit(a)' -DALT_NO_EXIT -DALT_USE_DIRECT_DRIVERS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:147:10: warning: unused variable 'c' [-Wunused-variable]
+   alt_u8 c;
+          ^
 Info: Compiling uart.c to obj/default/uart.o
 nios2-elf-gcc -xc -MP -MMD -c -I../DataLogger_bsp//HAL/inc -I../DataLogger_bsp/ -I../DataLogger_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_CLEAN_EXIT -D'exit(a)=_exit(a)' -DALT_NO_EXIT -DALT_USE_DIRECT_DRIVERS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/uart.o uart.c
 Info: Linking SPI.elf
 nios2-elf-g++  -T'../DataLogger_bsp//linker.x' -msys-crt0='../DataLogger_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../DataLogger_bsp/  -msmallc  -Wl,-Map=SPI.map   -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o SPI.elf obj/default/SDcard.o obj/default/SPI.o obj/default/dataLogger.o obj/default/main.o obj/default/uart.o -lm -msys-lib=m
 nios2-elf-insert SPI.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev uart_0 --stdin_dev uart_0 --stdout_dev uart_0 --sopc_system_name processor --quartus_project_dir "D:/Programy/QuartusPrimeLite/MojeProjekty/NIOS_II" --jdi ../..//output_files/NIOS_II.jdi --sopcinfo D:/Programy/QuartusPrimeLite/MojeProjekty/NIOS_II/software/DataLogger_bsp/../../processor.sopcinfo
-Info: (SPI.elf) 6992 Bytes program size (code + initialized data).
-Info:           1080 Bytes free for stack + heap.
+Info: (SPI.elf) 8068 Bytes program size (code + initialized data).
+Info:           2160 Bytes free for stack + heap.
 Info: Creating SPI.objdump
 nios2-elf-objdump --disassemble --syms --all-header --source SPI.elf >SPI.objdump
 [SPI build complete]
 
-18:08:22 Build Finished (took 2s.685ms)
+18:25:27 Build Finished (took 1s.576ms)
 

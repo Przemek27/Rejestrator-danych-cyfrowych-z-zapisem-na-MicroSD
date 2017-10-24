@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>2017-09-21 20:23:28</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1506018208489</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>2017-10-24 18:18:05</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1508861885565</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\Programy\QuartusPrimeLite\MojeProjekty\NIOS_II\software\DataLogger_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\processor.sopcinfo</SopcDesignFile>
@@ -888,37 +888,43 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory2_0</slaveDescriptor>
-                <addressRange>0x00002000 - 0x00003FFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00004000 - 0x000067FF</addressRange>
+                <addressSpan>10240</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi_0</slaveDescriptor>
-                <addressRange>0x00005000 - 0x0000501F</addressRange>
+                <addressRange>0x00009000 - 0x0000901F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>uart_0</slaveDescriptor>
-                <addressRange>0x00005020 - 0x0000503F</addressRange>
+                <addressRange>0x00009020 - 0x0000903F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>timer_0</slaveDescriptor>
-                <addressRange>0x00005040 - 0x0000505F</addressRange>
+                <addressRange>0x00009040 - 0x0000905F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>pio_1</slaveDescriptor>
+                <addressRange>0x00009060 - 0x0000906F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_0</slaveDescriptor>
-                <addressRange>0x00005060 - 0x0000506F</addressRange>
+                <addressRange>0x00009070 - 0x0000907F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>altpll_0</slaveDescriptor>
-                <addressRange>0x00005070 - 0x0000507F</addressRange>
+                <addressRange>0x00009080 - 0x0000908F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>

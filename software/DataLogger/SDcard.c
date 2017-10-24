@@ -5,7 +5,6 @@
  *      Author: Przemek
  */
 
-//TODO: sdCard_WriteData
 
 #include "SDcard.h"
 #include "SPI.h"
@@ -164,7 +163,7 @@ void sdCard_ReadData(alt_u32 address, alt_u8 blocks, alt_u8 *buffer){		//FIXME: 
 			temp = spi_ReadData(SPI_0_BASE);
 		}
 	}
-	//alt_printf("Data Token received\n\r");
+	alt_printf("Data Token received\n\r");
 
 	for(i=0;i<514;i++){								//512B data + 2B CRC
 		spi_SendByte(SPI_0_BASE, 0, 255);
@@ -181,28 +180,27 @@ void sdCard_ReadData(alt_u32 address, alt_u8 blocks, alt_u8 *buffer){		//FIXME: 
 }
 
 void sdCard_SaveData(alt_u32 address, alt_u8 *data){			//FIXME
-	alt_u8 cmd24[6] = {88, address >> 24, address >> 16, address >> 8, address, 1};		//FIXME: przyjete CRC = 0
-	alt_u32 cmd24_response;
+	alt_u8 cmd24[6] = {88, address >> 24, address >> 16, address >> 8, address, 1};
+	alt_u8 cmd13[6] = {77, 0, 0, 0, 0, 1};
+	alt_u32 cmd_response[2];
 	alt_u32 i;
-	alt_u32 temp;
+	alt_u32 temp = 0;
 
-	sdCard_SendCommand(cmd24, &cmd24_response, 1);
+	sdCard_SendCommand(cmd24, cmd_response, 1);
 
-	if(cmd24_response != 0x00){
+	if(cmd_response[0] != 0x00){
 		alt_printf("ERROR!\n\rSave'ing data to SD Card unsuccessful\n\r");
 		return;
 	}
 
-	for(i=0;i<8;i++){							//8 clock ticks
-		spi_SendByte(SPI_0_BASE, 0, 0xff);
-	}
+	spi_SendByte(SPI_0_BASE, 0, 0xff);			//8 clock ticks
 	spi_SendByte(SPI_0_BASE, 0, 0xfe);			//send data start token
 
 	for(i=0;i<512;i++){							//send data
 		spi_SendByte(SPI_0_BASE, 0, data[i]);
 	}
 
-	spi_SendByte(SPI_0_BASE, 0, 0xff);			//send CRC (2B)
+	spi_SendByte(SPI_0_BASE, 0, 0xff);			//ignore CRC (2B) (dummy write)
 	spi_SendByte(SPI_0_BASE, 0, 0xff);
 
 	for(i=0;i<16;i++){							//wait for response
@@ -210,23 +208,33 @@ void sdCard_SaveData(alt_u32 address, alt_u8 *data){			//FIXME
 		if(spi_IsData(SPI_0_BASE)){
 			temp = spi_ReadData(SPI_0_BASE);
 		}
-		if((temp && 0x0f) == 0x05)				//break if data accepted token was received
+		if((temp & 0x0f) == 0x05)				//break if data accepted token was received
 			break;
 	}
 
-	if(i==0){
+	//alt_printf("Data accepted token received\n\ri = %x\n\rtemp = %x\n\r", i, temp);
+
+	if(i == 16){
 		alt_printf("ERROR!\n\rData declined\n\r");
 		return;
 	}
 
 	temp = 0x00;
+	i = 0x00;
 
-	while(temp == 0x00){						//wait for data save'ing process ends
+	while(temp != 0xff){						//wait for data save'ing process ends
 		spi_SendByte(SPI_0_BASE, 0, 0xff);
 		if(spi_IsData(SPI_0_BASE)){
 			temp = spi_ReadData(SPI_0_BASE);
+			i++;
+			//alt_printf("temp = %x\n\r", temp);
 		}
 	}
-	alt_printf("Response from SD Card after sector write: %x\n\r", temp);
+	//alt_printf("Response from SD Card after sector write: %x\n\rNumber of iterations: %x\n\r", temp, i);
 
+	spi_SendByte(SPI_0_BASE, 0, 0xff);			//8 clock ticks
+	sdCard_SendCommand(cmd13, cmd_response, 2);
+	alt_printf("\n\rSD Card Status after save'ing data:\n\r		1)%x\n\r		2)%x\n\r\n\r", cmd_response[0], cmd_response[1]);
+//	spi_SelectSlave(SPI_0_BASE,0);
+//	spi_SendByte(SPI_0_BASE, 0, 0xff);			//8 clock ticks
 }
